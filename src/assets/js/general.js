@@ -1,0 +1,1 @@
+console.log('hi, this is general.js from assets')

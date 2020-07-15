@@ -1,10 +1,14 @@
 const path = require('path');
-
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     devtool: 'eval-cheap-module-source-map',
-    entry: './src/index.js',
+    entry: {
+        home: './src/pages/home/home.js',
+        about: './src/pages/about/about.js',
+        works: './src/pages/works/works.js'
+    },
     devServer: {
         port: 8080,
         contentBase: path.join(__dirname, "dist")
@@ -15,6 +19,12 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.html$/,
+                use: [
+                { loader: 'html-loader' }
+                ]
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
@@ -23,7 +33,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.(scss|css)$/,
+                test: /\.(scss|css|sass)$/,
                 use: [
                     {
                         // creates style nodes from JS strings
@@ -79,9 +89,26 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template: './index.html',
-            inject: true
+            template: './src/pages/home/home.html',
+            filename: 'index.html',
+            chunks: ['home'] 
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/about/about.html',
+            filename: 'about.html',
+            chunks: ['about'] 
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/works/1.html',
+            filename: 'works/1.html',
+            chunks: ['works'] 
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/works/2.html',
+            filename: 'works/2.html',
+            chunks: ['works'] 
         })
     ]
 };

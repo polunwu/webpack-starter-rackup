@@ -10,9 +10,13 @@ const buildPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
     devtool: 'source-map',
-    entry: './src/index.js',
+    entry: {
+        home: './src/pages/home/home.js',
+        about: './src/pages/about/about.js',
+        works: './src/pages/works/works.js',
+    },
     output: {
-        filename: '[name].[hash:20].js',
+        filename: '[name].[chunkhash:8].js',
         path: buildPath
     },
     node: {
@@ -20,6 +24,12 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.html$/,
+                use: [
+                { loader: 'html-loader' }
+                ]
+            },
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -87,9 +97,24 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './index.html',
-            // Inject the js bundle at the end of the body of the given template
-            inject: 'body',
+            template: './src/pages/home/home.html',
+            filename: 'index.html',
+            chunks: ['home'] 
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/about/about.html',
+            filename: 'about.html',
+            chunks: ['about'] 
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/works/1.html',
+            filename: 'works/1.html',
+            chunks: ['works'] 
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/pages/works/2.html',
+            filename: 'works/2.html',
+            chunks: ['works'] 
         }),
         new CleanWebpackPlugin(buildPath),
         new FaviconsWebpackPlugin({
