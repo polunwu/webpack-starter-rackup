@@ -75,11 +75,22 @@ module.exports = {
                         }
                     }
                 ]
-            }
-            ,
+            },
             {
-                // Load all icons
-                test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
+                // Load all svgs
+                test: /\.svg/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[path][name].[ext]?hash=[hash:20]',
+                        },
+                    }
+                ]
+            },
+            {
+                // Load all fonts
+                test: /\.(eot|woff|woff2|ttf)([\?]?.*)$/,
                 use: [
                     {
                         loader: 'file-loader',

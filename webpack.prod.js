@@ -83,16 +83,28 @@ module.exports = {
                         }
                     }
                 ]
-            }
-            ,
+            },
             {
-                // Load all icons
-                test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
+                // Load all svgs
+                test: /\.svg/,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
+                            name: '[name].[hash:20].[ext]',
                             outputPath: 'assets/images',
+                        },
+                    }
+                ]
+            },
+            {
+                // Load all fonts
+                test: /\.(eot|woff|woff2|ttf)([\?]?.*)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            outputPath: 'assets/fonts',
                         },
                     }
                 ]
