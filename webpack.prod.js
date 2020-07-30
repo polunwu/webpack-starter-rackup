@@ -16,7 +16,7 @@ module.exports = {
         works: './src/pages/works/works.js',
     },
     output: {
-        filename: '[name].[chunkhash:8].js',
+        filename: './assets/js/[name].[chunkhash:8].js',
         path: buildPath
     },
     node: {
@@ -78,7 +78,8 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             name: '[name].[hash:20].[ext]',
-                            limit: 8192
+                            limit: 8192,
+                            outputPath: 'assets/images'
                         }
                     }
                 ]
@@ -90,6 +91,9 @@ module.exports = {
                 use: [
                     {
                         loader: 'file-loader',
+                        options: {
+                            outputPath: 'assets/images',
+                        },
                     }
                 ]
             }
@@ -147,7 +151,7 @@ module.exports = {
             }
         }),
         new MiniCssExtractPlugin({
-            filename: 'styles.[contenthash].css'
+            filename: './assets/css/[name].[contenthash].css'
         }),
         new OptimizeCssAssetsPlugin({
             cssProcessor: require('cssnano'),
