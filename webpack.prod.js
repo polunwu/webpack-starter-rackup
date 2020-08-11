@@ -9,6 +9,12 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const buildPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
+    // 用 ~@img alias 解析 img urls, 避免相對路徑過長造成混淆
+    resolve: {
+        alias: {
+            '@img': path.resolve(__dirname, 'src/assets/images'),
+        },
+    },
     devtool: 'source-map',
     entry: {
         home: './src/pages/home/home.js',

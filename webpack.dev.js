@@ -3,6 +3,12 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    // 用 ~@img alias 解析 img urls, 避免相對路徑過長造成混淆
+    resolve: {
+        alias: {
+            '@img': path.resolve(__dirname, 'src/assets/images'),
+        },
+    },
     devtool: 'eval-cheap-module-source-map',
     entry: {
         home: './src/pages/home/home.js',
